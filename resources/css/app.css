@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    [type="text"],
+    [type="email"],
+    [type="url"],
+    [type="password"],
+    [type="number"],
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="search"],
+    [type="tel"],
+    [type="time"],
+    [type="week"],
+    [multiple],
+    textarea,
+    select {
+        @apply w-full border-gray-300 rounded-lg shadow-sm focus:border-[#B50209] focus:ring-[#B50209] dark:bg-gray-800 dark:border-gray-700;
+    }
+    [type="checkbox"],
+    [type="radio"] {
+        @apply border-gray-300 rounded text-[#B50209] focus:ring-[#B50209] dark:bg-gray-800;
+    }
+}
+
+@keyframes ldio-p8gmbj4kg {
+    0% {
+        top: 106.33px;
+        left: 106.33px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        top: 48.824999999999996px;
+        left: 48.824999999999996px;
+        width: 115.00999999999999px;
+        height: 115.00999999999999px;
+        opacity: 0;
+    }
+}
+.ldio-p8gmbj4kg div {
+    position: absolute;
+    border-width: 2.17px;
+    border-style: solid;
+    opacity: 1;
+    border-radius: 50%;
+    animation: ldio-p8gmbj4kg 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.ldio-p8gmbj4kg div:nth-child(1) {
+    border-color: #ff0007;
+    animation-delay: 0s;
+}
+.ldio-p8gmbj4kg div:nth-child(2) {
+    border-color: #dadede;
+    animation-delay: -0.5s;
+}
+.loadingio-spinner-ripple-uigywywh8uh {
+    width: 217px;
+    height: 217px;
+    display: inline-block;
+    overflow: hidden;
+    background: none;
+}
+.ldio-p8gmbj4kg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+}
+.ldio-p8gmbj4kg div {
+    box-sizing: content-box;
+}
+.dashboard-title-text {
+    color: #707070;
+    font-size: 1rem;
+    line-height: 2rem;
+}
+.dashboard-last_update-text {
+    color: #707070;
+    font-size: 1rem;
+    line-height: 2rem;
+}
+.dashboard-title-value {
+    color: #707070;
+    font-size: 1.8rem;
+    line-height: 2rem;
+}
+.active-menu {
+    background-color: #dedede;
+    color: #323232;
+}
+.active-btn-grp {
+    color: #dedede;
+    background-color: #0e132a;
+}
+.bg-primary-101:hover {
+    background-color: #dedede;
+}
+.active-text-red {
+    color: #a6221a;
+    font-weight: 600;
+}
+.grid-rows-4 {
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+}
+.grid-rows-3 {
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+.sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.md\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.grid-cols-8 {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+.grid-cols-9 {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+.grid-cols-10 {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+.grid-cols-11 {
+    grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+.grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.col-span-3 {
+    grid-column: span 3 / span 3;
+}
+.col-span-4 {
+    grid-column: span 4 / span 4;
+}
+.col-span-5 {
+    grid-column: span 5 / span 5;
+}
+.col-span-6 {
+    grid-column: span 6 / span 6;
+}
+.col-span-7 {
+    grid-column: span 7 / span 7;
+}
+.col-span-8 {
+    grid-column: span 8 / span 8;
+}
+
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.custom-tooltip .custom-tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.custom-tooltip:hover .custom-tooltip-text {
+    visibility: visible;
+}
+
+.tooltip-label {
+    visibility: hidden;
+}
+.tooltip {
+    color: rgb(201, 183, 183);
+    position: absolute;
+    margin-left: 70px;
+    width: max-content;
+    margin-top: -30px;
+    visibility: hidden;
+    background-color: black;
+    padding: 2px 2px 2px 8px;
+    border-radius: 3px;
+}
+.menu_icon:hover .tooltip {
+    visibility: visible;
+}
+
+.tooltip::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -4px;
+    top: 10px;
+    transform: rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: inherit;
+}
