@@ -83,6 +83,50 @@
                 </a>
             </x-backend.menu-item>
 
+            <!-- Transactions -->
+                <x-backend.menu-item title='All Transactions' :hasSubMenu="true"
+                                     is-active="{{ request()->is('admin/transactions*') }}" label="All Transactions">
+                    <x-slot:icon>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24">
+                            <path id="path_pay" data-name="path_pay"
+                                  d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                                  fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
+                                  stroke-width="2"/>
+                        </svg>
+                    </x-slot:icon>
+
+                    <a href=role="menuitem"
+                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/payment') ? 'active-menu' : '' }}"
+                       :class="{ 'lg:hidden': !isSidebarOpen }">
+                        Payments - UT -GOV
+                    </a>
+
+                    <a href=role="menuitem"
+                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/lanka-qr') ? 'active-menu' : '' }}"
+                       :class="{ 'lg:hidden': !isSidebarOpen }">
+                        LankaQR
+                    </a>
+
+                    <a href=role="menuitem"
+                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/fund-transfer') ? 'active-menu' : '' }}"
+                       :class="{ 'lg:hidden': !isSidebarOpen }">
+                        Fund Transfers
+                    </a>
+
+                    <a href=role="menuitem"
+                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/card-settlement') ? 'active-menu' : '' }}"
+                       :class="{ 'lg:hidden': !isSidebarOpen }">
+                        Card Settlements
+                    </a>
+
+                    <a href=role="menuitem"
+                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/refund') ? 'active-menu' : '' }}"
+                       :class="{ 'lg:hidden': !isSidebarOpen }">
+                        Refunds
+                    </a>
+
+                </x-backend.menu-item>
+
             <!-- MIS Reports -->
             <x-backend.menu-item title='MIS Reports' :hasSubMenu="true"
                                  is-active="{{ request()->is('admin/reports*') }}" label="MIS Reports">
@@ -127,7 +171,7 @@
                 </a>
 
             </x-backend.menu-item>
-            
+
 
             <div style="margin-bottom: 2rem;"></div>
         </ul>
