@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Permission;
 use App\Livewire\Backend\Dashboard;
 use Illuminate\Support\Facades\Route;
 
