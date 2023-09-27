@@ -74,6 +74,12 @@ final class AppUserManagementTable extends PowerGridComponent
                 ->field('phone_number')
                 ->searchable(),
 
+            Column::add()
+                ->title('Created at')
+                ->field('created_at')
+                ->searchable()
+                ->sortable(),
+
             // Column::action('Action')
         ];
     }
