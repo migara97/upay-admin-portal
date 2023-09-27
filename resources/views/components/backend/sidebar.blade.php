@@ -11,7 +11,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="173" height="46"
              viewBox="0 0 173 46">
             <defs>
-                
+
             </defs>
             <rect id="red" width="173" height="46" fill="url(#pattern)"/>
         </svg>
@@ -39,6 +39,65 @@
                               stroke-linejoin="round" stroke-width="2" opacity="0.631"/>
                     </svg>
                 </x-slot:icon>
+            </x-backend.menu-item>
+
+            <!-- Admin User Management -->
+            <x-backend.menu-item title='Admin User Management' :hasSubMenu="true"
+                                 is-active="{{ request()->is('admin/user-management*') }}"
+                                 label="Admin User Management">
+                <x-slot:icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">
+                        <path id="Path_2" data-name="Path 2"
+                              d="M17.571,7A4.314,4.314,0,0,1,13,11,4.314,4.314,0,0,1,8.429,7,4.314,4.314,0,0,1,13,3a4.314,4.314,0,0,1,4.571,4ZM13,14c-4.418,0-8,3.134-8,7H21C21,17.134,17.418,14,13,14Z"
+                              transform="translate(-4 -2)" fill="none" stroke="#000" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="2" opacity="0.631"/>
+                    </svg>
+                </x-slot:icon>
+
+                <a href="{{ route('admin.user-managment.user') }}" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/user-management/users') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Manage User
+                </a>
+            </x-backend.menu-item>
+
+            <!-- Role management -->
+            <x-backend.menu-item title='Role Management' :hasSubMenu="true"
+                                 is-active="{{ request()->is('admin/role-management*') }}" label="Role Management">
+                <x-slot:icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <path id="Path_3" data-name="Path 3"
+                              d="M13,6.25V4m0,2.25a2.25,2.25,0,1,0,0,4.5m0-4.5a2.25,2.25,0,1,1,0,4.5m-6.75,9a2.25,2.25,0,1,0,0-4.5m0,4.5a2.25,2.25,0,1,1,0-4.5m0,4.5V22m0-6.75V4M13,10.75V22m6.75-2.25a2.25,2.25,0,1,0,0-4.5m0,4.5a2.25,2.25,0,1,1,0-4.5m0,4.5V22m0-6.75V4"
+                              transform="translate(-3 -3)" fill="none" stroke="#000" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="2" opacity="0.631"/>
+                    </svg>
+                </x-slot:icon>
+
+                <a href="{{ route('admin.role-managment.role') }}" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/role-management/roles') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Manage Roles
+                </a>
+            </x-backend.menu-item>
+
+            <!-- MIS Reports -->
+            <x-backend.menu-item title='MIS Reports' :hasSubMenu="true"
+                                 is-active="{{ request()->is('admin/reports*') }}" label="MIS Reports">
+                <x-slot:icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <path id="Path_7" data-name="Path 7"
+                              d="M10.143,17V15M14,17V13m3.857,4V11m2.571,10H7.571A2.34,2.34,0,0,1,5,19V5A2.34,2.34,0,0,1,7.571,3h7.182a1.492,1.492,0,0,1,.909.293l6.961,5.414A.9.9,0,0,1,23,9.414V19A2.34,2.34,0,0,1,20.429,21Z"
+                              transform="translate(-4 -2)" fill="none" stroke="#000" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="2" opacity="0.631"/>
+                    </svg>
+                </x-slot:icon>
+
+                <a href="{{ route('admin.reports.admin-creation') }}" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/reports/admin-users') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    All Admin Users
+                </a>
+
             </x-backend.menu-item>
 
             <div style="margin-bottom: 2rem;"></div>
