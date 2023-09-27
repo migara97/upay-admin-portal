@@ -9,9 +9,12 @@
     <!-- sidebar header -->
     <div class="flex items-center justify-between flex-shrink-0 p-2" :class="{ 'lg:justify-center': !isSidebarOpen }">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="173" height="46"
-             viewBox="0 0 173 46">
+             viewBox="-30 0 173 46">
             <defs>
-
+                <pattern id="pattern" width="1" height="1" viewBox="-11.669 -4.565 207.337 55.13">
+                    <image width="184" height="46"
+                           xlink:href="{{URL::asset('/image/Upay-Logo.png')}}"/>
+                </pattern>
             </defs>
             <rect id="red" width="173" height="46" fill="url(#pattern)"/>
         </svg>
