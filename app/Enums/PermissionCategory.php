@@ -5,11 +5,13 @@ namespace App\Enums;
 enum PermissionCategory: int
 {
     case Other = 0;
+    case Biller = 1;
 
     public function labels(): string
     {
         return match ($this) {
-            self::Other => "General"
+            self::Other    => "General",
+            self::Biller   => "Biller Management",
         };
     }
 

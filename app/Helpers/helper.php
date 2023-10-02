@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
+
 if (!function_exists('include_route_files')) {
 
     /**
@@ -61,5 +64,26 @@ if (!function_exists('get_formatted_permission_list')) {
 
         asort($formattedPermissionList);
         return $formattedPermissionList;
+    }
+}
+
+if (!function_exists('log_activity')) {
+
+    function log_activity($action, $description, $appUser = null, $level = \Psr\Log\LogLevel::INFO)
+    {
+        $user = auth()->user() != null ? auth()->user()->email : "";
+        $log = "[ACTIVITY] | " . str_pad($user, 25) . " | " . str_pad($action, 10) . " | " . $appUser . " | ";
+        try {
+            Log::log($level, $log . "Description -> " . $description);
+
+            App::make(ActivityRepository::class)->saveActivity([
+                "user" => $user,
+                "affected_app_user" => $appUser,
+                "action" => $action,
+                "description" => $description,
+            ]);
+        } catch (Exception $e) {
+            Log::error($log . "Exception: " . $e->getMessage() . " - " . $e->getLine());
+        }
     }
 }
