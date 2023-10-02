@@ -184,7 +184,7 @@
                     </svg>
                 </x-slot:icon>
 
-                <a href="" role="menuitem"
+                <a href="{{ route('admin.providers.category') }}" role="menuitem"
                    class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/providers/category') ? 'active-menu' : '' }}"
                    :class="{ 'lg:hidden': !isSidebarOpen }">
                     Provider Categories
