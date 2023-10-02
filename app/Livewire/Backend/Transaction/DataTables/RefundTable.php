@@ -16,7 +16,7 @@ use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridColumns;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 
-final class LankaQrTable extends PowerGridComponent
+final class RefundTable extends PowerGridComponent
 {
     public function setUp(): array
     {
@@ -35,48 +35,37 @@ final class LankaQrTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        $transactions = Transaction::query()
-            ->whereIn('payment_category', ['LANKAQR', 'VISA_MASTER_QR'])
+        return Transaction::query()->where('payment_category', 'REFUND')
             ->select([
                 'transaction.id',
                 'transaction.transaction_reference',
                 'transaction.payer_id',
                 'transaction.payer_email',
+                'transaction.payment_method',
+                'transaction.fund_transfer_type',
+                'transaction.linked_tran_id',
+                'transaction.payee_account_number',
+                'transaction.payer_account_name',
+                'transaction.payee_account_name',
+                'transaction.payee_bank_name',
+                'transaction.payer_account_number',
+                'transaction.payer_bank_name',
+                'transaction.payment_method',
+                'transaction.payment_type_description',
                 'transaction.paying_amount',
                 'transaction.currency',
-                'transaction.payment_method_id',
                 'transaction.status',
-                'transaction.linked_tran_id',
-                'transaction.payment_processor',
-                'transaction.fund_transfer_type',
-                'transaction.payer_account_number',
-                'transaction.final_payee_account_mask',
                 'transaction.bank_reference_id',
-                'transaction.payment_type_description',
                 'transaction.created_at',
+                'transaction.bank_response',
                 'transaction.original_amount',
-                'app_user.nic',
-                'app_user.phone_number',
-                'bank_response',
                 'transaction.payer_login_id',
-                'transaction.payer_bank_name',
-                'transaction.payer_bank_code',
-                'transaction.payer_account_name',
-                'transaction.payee_name',
-                'transaction.bank_rrn',
-                'transaction.qr_mid',
-                'transaction.payee_id',
-                'transaction.payee_bank_code',
-                'transaction.payee_bank_name',
-                'transaction.qr_mcc',
                 'transaction.payer_reference',
-                'transaction.payee_account_number'
-            ]);
-
-            $transactions->orderBy($this->sortField ?? 'id', $this->sortField == 'id' ? 'DESC' : $this->sortDirection)
-            ->leftJoin('app_user', 'transaction.payer_id', '=', 'app_user.username');
-
-        return $transactions;
+                'app_user.nic',
+                'app_user.phone_number'
+            ])
+            ->leftJoin('app_user', 'transaction.payer_login_id', '=', 'app_user.name')
+            ->orderBy($this->sortField ?? 'id', $this->sortField == 'id' ? 'DESC' : $this->sortDirection);
     }
 
     public function addColumns(): PowerGridColumns
@@ -93,11 +82,11 @@ final class LankaQrTable extends PowerGridComponent
     {
         return [
             Column::add()
-                ->title('Created at')
-                ->field('created_at_formatted'),
-                
-            Column::add()
                 ->title('Transaction ID')
+                ->field('id'),
+
+            Column::add()
+                ->title('Transaction Reference')
                 ->field('transaction_reference'),
 
             Column::add()
@@ -105,20 +94,24 @@ final class LankaQrTable extends PowerGridComponent
                 ->field('payer_login_id'),
 
             Column::add()
-                ->title('Payer Email')
-                ->field('payer_email'),
+                ->title('Payer Account Name')
+                ->field('payer_account_name')
+                ->sortable()
+                ->searchable(),
 
             Column::add()
                 ->title('Payer NIC')
+                ->searchable()
                 ->field('nic'),
+
 
             Column::add()
                 ->title('Payer Mobile')
                 ->field('phone_number'),
 
             Column::add()
-                ->title('Payer Account Number')
-                ->field('payer_account_number'),
+                ->title('Payment Method')
+                ->field('payment_method'),
 
             Column::add()
                 ->title('Paying Amount')
@@ -128,84 +121,69 @@ final class LankaQrTable extends PowerGridComponent
             Column::add()
                 ->title('Currency')
                 ->field('currency'),
-                
+
+            Column::add()
+                ->title('Fund Transfer Type')
+                ->field('fund_transfer_type_formated'),
+
+            Column::add()
+                ->title('Linked Transaction Id')
+                ->field('linked_tran_id'),
+
+            Column::add()
+                ->title('Payee Account Name')
+                ->field('payee_account_name'),
+
             Column::add()
                 ->title('Status')
                 ->visibleInExport(false)
                 ->headerAttribute('text-center', 'width:150px')
                 ->bodyAttribute('text-center')
-                // ->makeInputEnumSelect(\App\Enums\PaymentStatusType::cases(), 'transaction.status')
-                ->field('status_labels'),
+                ->field('status'),
 
             Column::add()
-                ->title('Status')
-                ->visibleInExport(true)
-                ->hidden()
-                ->field('status_values'),
-
-//    payer bank name
-            Column::add()
-                ->title('Source Account Bank')
-                ->field('payer_bank_name'),
-//    payer bank code
-            Column::add()
-                ->title('Source Account Bank Code')
-                ->field('payer_bank_code'),
-//    payer_account_name
-            Column::add()
-                ->title('Customer Name')
-                ->field('payer_account_name'),
-//    payee_name
-            Column::add()
-                ->title('Merchant Name')
-                ->field('payee_name'),
-
-//    payer payee both seylan
-//    bank rrn as credit rrn
+                ->title('Payee Account Number')
+                ->field('payee_account_number'),
 
             Column::add()
-                ->title('Credit RRN')
-                ->field('bank_rrn'),
-            Column::add()
-                ->title('MID')
-                ->field('qr_mid'),
-
-            Column::add()
-                ->title('TID')
-                ->field('terminal_id'),
-
-            Column::add()
-                ->title('Merchant Bank Code')
-                ->field('payee_bank_code'),
-
-            Column::add()
-                ->title('Merchant Bank Name')
+                ->title('Payee Bank Name')
                 ->field('payee_bank_name'),
 
             Column::add()
-                ->title('MCC')
-                ->field('qr_mcc'),
+                ->title('Payer Account Number')
+                ->field('payer_account_number'),
 
             Column::add()
-                ->title('Narration')
-                ->field('payer_reference'),
+                ->title('Payer Bank Name')
+                ->field('payer_bank_name'),
+
 
             Column::add()
-                ->title('Bank Reference')
-                ->field('bank_reference_id'),
+                ->title('Payment Type Description')
+                ->field('payment_type_description'),
+
+            Column::add()
+                ->title('Status')
+                ->hidden()
+                ->visibleInExport(true)
+                ->field('status_values'),
+
             Column::add()
                 ->title('Transaction Reference')
-                ->field('id'),
+                ->field('bank_reference_id'),
 
             Column::add()
-                ->title('Customer'),
-            Column::add()
-                ->title('Merchant')
-                ->field('merchant_onus_offus'),
+                ->title('Created at')
+                ->field('created_at_formatted'),
 
             Column::add()
-                ->title('Type')
-                ->field('qr_type'),
+                ->title('Bank Response')
+                ->field('bank_response'),
+
+            Column::add()
+                ->title('Payer Reference')
+                ->field('payer_reference'),
+                
         ];
     }
 

@@ -10,7 +10,7 @@ class Transaction extends Model
     use HasFactory;
 
     protected $table = "transaction";
-    protected $connection = 'app_mysql';
+    // protected $connection = 'app_mysql';
     public $timestamps = false;
 
     const SUCCESS = "SUCCESS";

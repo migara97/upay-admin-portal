@@ -95,7 +95,7 @@
                         </svg>
                     </x-slot:icon>
 
-                    <a href=role="menuitem"
+                    <a href="{{ route('admin.transactions.payment') }}" role="menuitem"
                        class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/payment') ? 'active-menu' : '' }}"
                        :class="{ 'lg:hidden': !isSidebarOpen }">
                         Payments - UT -GOV
@@ -119,7 +119,7 @@
                         Card Settlements
                     </a>
 
-                    <a href=role="menuitem"
+                    <a href="{{ route('admin.transactions.refund') }}" role="menuitem"
                        class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/refund') ? 'active-menu' : '' }}"
                        :class="{ 'lg:hidden': !isSidebarOpen }">
                         Refunds
