@@ -107,7 +107,7 @@
                         LankaQR
                     </a>
 
-                    <a href=role="menuitem"
+                    <a href="{{ route('admin.transactions.fund-transfer') }}" role="menuitem"
                        class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/fund-transfer') ? 'active-menu' : '' }}"
                        :class="{ 'lg:hidden': !isSidebarOpen }">
                         Fund Transfers
