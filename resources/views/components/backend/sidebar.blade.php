@@ -84,48 +84,48 @@
             </x-backend.menu-item>
 
             <!-- Transactions -->
-                <x-backend.menu-item title='All Transactions' :hasSubMenu="true"
-                                     is-active="{{ request()->is('admin/transactions*') }}" label="All Transactions">
-                    <x-slot:icon>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24">
-                            <path id="path_pay" data-name="path_pay"
-                                  d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-                                  fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
-                                  stroke-width="2"/>
-                        </svg>
-                    </x-slot:icon>
+            <x-backend.menu-item title='All Transactions' :hasSubMenu="true"
+                                 is-active="{{ request()->is('admin/transactions*') }}" label="All Transactions">
+                <x-slot:icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24">
+                        <path id="path_pay" data-name="path_pay"
+                              d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                              fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="2"/>
+                    </svg>
+                </x-slot:icon>
 
-                    <a href="{{ route('admin.transactions.payment') }}" role="menuitem"
-                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/payment') ? 'active-menu' : '' }}"
-                       :class="{ 'lg:hidden': !isSidebarOpen }">
-                        Payments - UT -GOV
-                    </a>
+                <a href="{{ route('admin.transactions.payment') }}" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/payment') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Payments - UT -GOV
+                </a>
 
-                    <a href="{{ route('admin.transactions.lanka-qr') }}" role="menuitem"
-                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/lanka-qr') ? 'active-menu' : '' }}"
-                       :class="{ 'lg:hidden': !isSidebarOpen }">
-                        LankaQR
-                    </a>
+                <a href="{{ route('admin.transactions.lanka-qr') }}" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/lanka-qr') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    LankaQR
+                </a>
 
-                    <a href="{{ route('admin.transactions.fund-transfer') }}" role="menuitem"
-                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/fund-transfer') ? 'active-menu' : '' }}"
-                       :class="{ 'lg:hidden': !isSidebarOpen }">
-                        Fund Transfers
-                    </a>
+                <a href="{{ route('admin.transactions.fund-transfer') }}" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/fund-transfer') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Fund Transfers
+                </a>
 
-                    <a href=role="menuitem"
-                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/card-settlement') ? 'active-menu' : '' }}"
-                       :class="{ 'lg:hidden': !isSidebarOpen }">
-                        Card Settlements
-                    </a>
+                <a href="{{ route('admin.transactions.card-settlement') }}" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/card-settlement') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Card Settlements
+                </a>
 
-                    <a href="{{ route('admin.transactions.refund') }}" role="menuitem"
-                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/refund') ? 'active-menu' : '' }}"
-                       :class="{ 'lg:hidden': !isSidebarOpen }">
-                        Refunds
-                    </a>
+                <a href="{{ route('admin.transactions.refund') }}" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/transactions/refund') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Refunds
+                </a>
 
-                </x-backend.menu-item>
+            </x-backend.menu-item>
 
             <!-- MIS Reports -->
             <x-backend.menu-item title='MIS Reports' :hasSubMenu="true"
@@ -140,9 +140,9 @@
                 </x-slot:icon>
 
                 <a href="{{ route('admin.reports.appUser') }}" role="menuitem"
-                       class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/reports/app-user*') ? 'active-menu' : '' }}"
-                       :class="{ 'lg:hidden': !isSidebarOpen }">
-                        Customer List
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/reports/app-user*') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Customer List
                 </a>
 
                 <a href="{{ route('admin.reports.admin-creation') }}" role="menuitem"
@@ -155,19 +155,45 @@
 
             <!-- Management -->
             <x-backend.menu-item title='Management' :hasSubMenu="true"
-                                is-active="{{ request()->is('admin/management*') }}" label="Management">
+                                 is-active="{{ request()->is('admin/management*') }}" label="Management">
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
+                         stroke="currentColor" class="w-6 h-6">
                         <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
-                                d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/>
+                              d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/>
                     </svg>
                 </x-slot:icon>
 
                 <a href="{{ route('admin.management.app-user') }}" role="menuitem"
-                    class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/management/app-user') ? 'active-menu' : '' }}"
-                    :class="{ 'lg:hidden': !isSidebarOpen }">
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/management/app-user') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
                     App Users
+                </a>
+
+            </x-backend.menu-item>
+
+            <!-- Service Provider Management -->
+            <x-backend.menu-item title='Biller Management' :hasSubMenu="true"
+                                 is-active="{{ request()->is('admin/providers*') }}" label="Biller Management">
+                <x-slot:icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <path id="Path_6" data-name="Path 6"
+                              d="M7,21a4,4,0,0,1-4-4V5A2,2,0,0,1,5,3H9a2,2,0,0,1,2,2V17A4,4,0,0,1,7,21Zm0,0H19a2,2,0,0,0,2-2V15a2,2,0,0,0-2-2H16.657M11,7.343l1.657-1.657a2,2,0,0,1,2.828,0l2.829,2.829a2,2,0,0,1,0,2.828L9.828,19.828M7,17h.01"
+                              transform="translate(-2 -2)" fill="none" stroke="#000" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="2" opacity="0.631"/>
+                    </svg>
+                </x-slot:icon>
+
+                <a href="" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/providers/category') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Provider Categories
+                </a>
+
+                <a href="" role="menuitem"
+                   class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/providers/biller') ? 'active-menu' : '' }}"
+                   :class="{ 'lg:hidden': !isSidebarOpen }">
+                    Providers
                 </a>
 
             </x-backend.menu-item>

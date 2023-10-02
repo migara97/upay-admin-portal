@@ -9,6 +9,7 @@ use App\Livewire\Backend\Transaction\LankaQr;
 use App\Livewire\Backend\Transaction\FundTransfer;
 use App\Livewire\Backend\Transaction\Payment;
 use App\Livewire\Backend\Transaction\Refund;
+use App\Livewire\Backend\Transaction\CardSettlement;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('dashboard', Dashboard::class)->name('dashboard');
@@ -40,5 +41,6 @@ Route::prefix('transactions')->group(function () {
     Route::get('/payment', Payment::class)->name('transactions.payment');
     Route::get('/lanka-qr', LankaQr::class)->name('transactions.lanka-qr');
     Route::get('/fund-transfer', FundTransfer::class)->name('transactions.fund-transfer');
+    Route::get('/card-settlement', CardSettlement::class)->name('transactions.card-settlement');
     Route::get('/refund', Refund::class)->name('transactions.refund');
 });

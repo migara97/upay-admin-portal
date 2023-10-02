@@ -8,6 +8,6 @@ class FundTransfer extends Component
 {
     public function render()
     {
-        return view('livewire..backend.transaction.fund-transfer')->layout('layouts.app');
+        return view('livewire.backend.transaction.fund-transfer')->layout('layouts.app');
     }
 }
