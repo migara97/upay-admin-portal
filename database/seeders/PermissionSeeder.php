@@ -16,6 +16,9 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             ['name' => 'view-backend', 'category_id' => Pmc::Other->value],
+            
+            // Biller
+            [ 'name' => 'view-biller-management', 'category_id' => Pmc::Biller->value],
         ];
 
         //Disable foregin key checks

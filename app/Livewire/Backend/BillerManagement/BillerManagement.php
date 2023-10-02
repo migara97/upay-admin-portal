@@ -72,16 +72,16 @@ class BillerManagement extends Component
         'accountNo.digits_between' => 'The account number must be between 3 and 30 digits.',
     ];
 
-    public function boot(BillerRepositoryInterface $billerProviderRepository)
-    {
-        self::$billerProviderService = $billerProviderRepository;
-    }
+    // public function boot(BillerRepositoryInterface $billerProviderRepository)
+    // {
+    //     self::$billerProviderService = $billerProviderRepository;
+    // }
 
-    public function mount( JustpayBankRepository $bankRepository)
-    {
-        $this->labels = $this->getLabels();
-        $this->banks = $bankRepository->getActiveBanks();
-    }
+    // public function mount( JustpayBankRepository $bankRepository)
+    // {
+    //     $this->labels = $this->getLabels();
+    //     $this->banks = $bankRepository->getActiveBanks();
+    // }
 
     public function render()
     {
