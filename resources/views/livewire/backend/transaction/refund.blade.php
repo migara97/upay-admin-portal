@@ -4,6 +4,8 @@
     </div>
 
     <x-card title="" class="relative">
+        
         <livewire:backend.transaction.data-tables.refund-table />
+
     </x-card>
 </div>
