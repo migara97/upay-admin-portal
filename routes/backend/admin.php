@@ -2,6 +2,7 @@
 
 use App\Enums\Permission;
 use App\Livewire\Backend\BillerManagement\BillerManagement;
+use App\Livewire\Backend\BillerManagement\BillerCategoryManagement;;
 use App\Livewire\Backend\Dashboard;
 use App\Livewire\Backend\Management\AppUserManagement;
 use App\Livewire\Backend\MisReport\AdminCreation;
@@ -49,4 +50,5 @@ Route::prefix('transactions')->group(function () {
 // Providers management routes
 Route::group(['prefix' => 'providers', 'as' => 'providers.'], function () {
     Route::get('biller', BillerManagement::class)->name('biller');
+    Route::get('category', BillerCategoryManagement::class)->name('category');
 });
