@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Permission;
+use App\Livewire\Backend\BillerManagement\BillerManagement;
 use App\Livewire\Backend\Dashboard;
 use App\Livewire\Backend\Management\AppUserManagement;
 use App\Livewire\Backend\MisReport\AdminCreation;
@@ -43,4 +44,9 @@ Route::prefix('transactions')->group(function () {
     Route::get('/fund-transfer', FundTransfer::class)->name('transactions.fund-transfer');
     Route::get('/card-settlement', CardSettlement::class)->name('transactions.card-settlement');
     Route::get('/refund', Refund::class)->name('transactions.refund');
+});
+
+// Providers management routes
+Route::group(['prefix' => 'providers', 'as' => 'providers.'], function () {
+    Route::get('biller', BillerManagement::class)->name('biller');
 });

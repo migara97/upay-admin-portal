@@ -190,7 +190,7 @@
                     Provider Categories
                 </a>
 
-                <a href="" role="menuitem"
+                <a href="{{ route('admin.providers.biller') }}" role="menuitem"
                    class="block p-1 text-xs text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700 {{ request()->is('admin/providers/biller') ? 'active-menu' : '' }}"
                    :class="{ 'lg:hidden': !isSidebarOpen }">
                     Providers
