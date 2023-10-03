@@ -4,6 +4,7 @@ namespace App\Livewire\Backend\BillerManagement\DataTables;
 
 use App\Models\Backend\BillerCategory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Blade;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -56,8 +57,14 @@ final class BillerCategoryTable extends PowerGridComponent
             parent::getListeners(),
             [
                 'create-category' => 'createCategory',
+                'edit-category' => 'editCategory',
             ]
         );
+    }
+
+    public function editCategory($id)
+    {
+        $this->dispatch('EditCategory', $id);
     }
 
     public function datasource(): Builder
@@ -75,7 +82,12 @@ final class BillerCategoryTable extends PowerGridComponent
         return PowerGrid::columns()
             ->addColumn('id')
             ->addColumn('category_order')
-            ->addColumn('category_status')
+            ->addColumn('category_status', function (BillerCategory $category) {
+                if ($category->category_status) {
+                    return Blade::render('<x-button.circle positive 2xs label=" " />');
+                }
+                return Blade::render('<x-button.circle negative 2xs label=" "/>');
+            })
             ->addColumn('name')
 
            /** Example of custom column using a closure **/
@@ -86,18 +98,20 @@ final class BillerCategoryTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::add()->title('id')->field('id')->sortable(),
-            Column::add()->title('Category Id')->field('category_id')->searchable()->sortable()->headerAttribute('', 'width: 10rem'),
+            Column::add()->title('id')->field('category_id')->sortable(),
             Column::add()->title('Name')->field('name')->searchable()->sortable(),
             Column::add()->title('Status')->field('category_status')->visibleInExport(false),
             Column::add()->title('Status')->field('category_status_export')->hidden()->visibleInExport(true),
+            Column::action('Action'),
         ];
     }
 
     public function filters(): array
     {
         return [
-            Filter::inputText('name')->operators(['contains']),
+            Filter::inputText('category_id'),
+            Filter::inputText('name'),
+            Filter::boolean('category_status')->label('Active','Inactive'),
         ];
     }
 
@@ -107,16 +121,16 @@ final class BillerCategoryTable extends PowerGridComponent
         $this->js('alert('.$rowId.')');
     }
 
-//    public function actions(\App\Models\Backend\BillerCategory $row): array
-//    {
-//        return [
-//            Button::add('edit')
-//                ->slot('Edit: '.$row->id)
-//                ->id()
-//                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-//                ->dispatch('edit', ['rowId' => $row->id])
-//        ];
-//    }
+    public function actions(\App\Models\Backend\BillerCategory $row): array
+    {
+        return [
+            Button::add('edit')
+                ->slot('Edit: '.$row->id)
+                ->id()
+                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->dispatch('edit-category', ['id' => $row->id])
+        ];
+    }
 
     /*
     public function actionRules($row): array
