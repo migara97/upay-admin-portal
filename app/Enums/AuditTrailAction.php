@@ -1,0 +1,203 @@
+<?php
+
+namespace App\Enums;
+
+enum AuditTrailAction: string
+{
+    case USER_LOGIN = "User login";
+    case UPDATE_SETTINGS = "Update settings";
+    case UPDATE_DUAL_AUTH_SETTINGS_PENDING = "Update dual-auth settings pending";
+    case UPDATE_DUAL_AUTH_SETTINGS = "Update dual-auth settings";
+    case SEND_NOTIFICATION_PENDING = "Send notification pending";
+    case SEND_NOTIFICATION = "Send notification";
+    case REPLY_MESSAGE_PENDING = "Reply Message pending";
+    case REPLY_MESSAGE = "Reply Message";
+    case ADD_MESSAGE_SUBJECT = "Add message subject";
+    case UPDATE_MESSAGE_SUBJECT = "Update message subject";
+    case REPLY_REPORTED_ISSUE_PENDING = "Reply reported issue pending";
+    case REPLY_REPORTED_ISSUE = "Reply reported issue";
+    case APPROVE_NIC_CHANGE_PENDING = "Approve NIC change pending";
+    case APPROVE_NIC_CHANGE = "Approve NIC change";
+    case REJECT_NIC_CHANGE_PENDING = "Reject NIC change pending";
+    case REJECT_NIC_CHANGE = "Reject NIC change";
+    case APPROVE_MOBILE_CHANGE_PENDING = "Approve Mobile change pending";
+    case APPROVE_MOBILE_CHANGE = "Approve Mobile change";
+    case REJECT_MOBILE_CHANGE_PENDING = "Reject Mobile change pending";
+    case REJECT_MOBILE_CHANGE = "Reject Mobile change";
+    case EDIT_BILLER_FEE_PENDING = "Edit biller fee pending";
+    case EDIT_BILLER_FEE = "Edit biller fee";
+    case ADD_QR_FEE_PENDING = "Add QR fee pending";
+    case ADD_QR_FEE = "Add QR fee";
+    case EDIT_QR_FEE_PENDING = "Edit QR fee pending";
+    case EDIT_QR_FEE = "Edit QR fee";
+    case ADD_BILLER_PENDING = "Add biller pending";
+    case ADD_BILLER = "Add biller";
+    case EDIT_BILLER_PENDING = "Edit biller pending";
+    case EDIT_BILLER = "Edit biller";
+    case ADD_BILLER_CATEGORY_PENDING = "Add biller category pending";
+    case ADD_BILLER_CATEGORY = "Add biller category";
+    case EDIT_BILLER_CATEGORY_PENDING = "Edit biller category pending";
+    case EDIT_BILLER_CATEGORY = "Edit biller category";
+    case ADD_PROMOTION_PENDING = "Add promotion pending";
+    case ADD_PROMOTION = "Add promotion";
+    case EDIT_PROMOTION_PENDING = "Edit promotion pending";
+    case EDIT_PROMOTION = "Edit promotion";
+    case ADD_PROMOTION_CATEGORY_PENDING = "Add promotion category pending";
+    case ADD_PROMOTION_CATEGORY = "Add promotion category";
+    case EDIT_PROMOTION_CATEGORY_PENDING = "Edit promotion category pending";
+    case EDIT_PROMOTION_CATEGORY = "Edit promotion category";
+    case ADD_CEFT_BANK_PENDING = "Add CEFT bank pending";
+    case ADD_CEFT_BANK = "Add CEFT bank";
+    case UPDATE_CEFT_BANK_PENDING = "Update CEFT bank pending";
+    case UPDATE_CEFT_BANK = "Update CEFT bank";
+    case ADD_JP_BANK_PENDING = "Add Justpay bank pending";
+    case ADD_JP_BANK = "Add Justpay bank";
+    case UPDATE_JP_BANK_PENDING = "Update Justpay bank pending";
+    case UPDATE_JP_BANK = "Update Justpay bank";
+    case ADD_SEYLAN_BRANCH_PENDING = "Add Seylan branch pending";
+    case ADD_SEYLAN_BRANCH = "Add Seylan";
+    case UPDATE_SEYLAN_BRANCH_PENDING = "Update Seylan branch pending";
+    case UPDATE_SEYLAN_BRANCH = "Update Seylan branch";
+    case ADD_ACCOUNT_TYPE_PENDING = "Add account type pending";
+    case ADD_ACCOUNT_TYPE = "Add account type";
+    case UPDATE_ACCOUNT_TYPE_PENDING = "Update account type pending";
+    case UPDATE_ACCOUNT_TYPE = "Update account type";
+    case ADD_CUSTOMER_TYPE_PENDING = "Add customer type pending";
+    case ADD_CUSTOMER_TYPE = "Add customer type";
+    case UPDATE_CUSTOMER_TYPE_PENDING = "Update customer type pending";
+    case UPDATE_CUSTOMER_TYPE = "Update customer type";
+    case USER_STATUS_UPDATE_PENDING = "User status update pending";
+    case USER_STATUS_UPDATE = "User status update";
+    case USER_PIN_RESET_PENDING = "User PIN reset pending";
+    case USER_PIN_RESET = "User PIN reset";
+    case ADD_ADMIN_USER_PENDING = "Add admin user pending";
+    case ADD_ADMIN_USER = "Add admin user";
+    case UPDATE_ADMIN_USER_PENDING = "Update admin user pending";
+    case UPDATE_ADMIN_USER = "Update admin user";
+    case ADD_ROLE_PENDING = "Add role pending";
+    case ADD_ROLE = "Add role";
+    case UPDATE_ROLE_PENDING = "Update role pending";
+    case UPDATE_ROLE = "Update role";
+    case DELETE_ROLE_PENDING = "Delete role pending";
+    case DELETE_ROLE = "Delete role";
+    case ADD_GROUP_LIMIT_PENDING = "Add user group limit pending";
+    case ADD_GROUP_LIMIT = "Add user group limit";
+    case UPDATE_GROUP_LIMIT_PENDING = "Update user group limit pending";
+    case UPDATE_GROUP_LIMIT = "Update user group limit";
+    case ADD_CARD_BIN = "Add card BIN";
+    case UPDATE_CARD_BIN = "Update card BIN";
+    case ADD_CARD_BIN_PENDING = "Add card BIN pending";
+    case UPDATE_CARD_BIN_PENDING = "Update card BIN pending";
+    case UPDATE_NETWORK_PRIORITIES_PENDING = "Update Network Priorities Pending";
+    case UPDATE_NETWORK_PRIORITIES = "Update Network Priorities";
+    case ADD_LPOP_MCC_CODE = "Add LPOP MCC Code";
+    case UPDATE_LPOP_MCC_CODE= "Update LPOP MCC Code";
+    case ADD_LPOP_MCC_CODE_PENDING = "Add LPOP MCC Code pending";
+    case UPDATE_LPOP_MCC_CODE_PENDING = "Update LPOP MCC Code pending";
+    case REVIEW_APP_USER_PENDING  = "Review App User Pending";
+    case REVIEW_APP_USER = "Review App User";
+
+    public function labels(): string
+    {
+        return match ($this) {
+            self::USER_LOGIN => "User login",
+            self::UPDATE_SETTINGS => "Update settings",
+            self::UPDATE_DUAL_AUTH_SETTINGS_PENDING => "Update dual-auth settings pending",
+            self::UPDATE_DUAL_AUTH_SETTINGS => "Update dual-auth settings",
+            self::SEND_NOTIFICATION_PENDING => "Send notification pending",
+            self::SEND_NOTIFICATION => "Send notification",
+            self::REPLY_MESSAGE_PENDING => "Reply Message pending",
+            self::REPLY_MESSAGE => "Reply Message",
+            self::ADD_MESSAGE_SUBJECT => "Add message subject",
+            self::UPDATE_MESSAGE_SUBJECT => "Update message subject",
+            self::REPLY_REPORTED_ISSUE_PENDING => "Reply reported issue pending",
+            self::REPLY_REPORTED_ISSUE => "Reply reported issue",
+            self::APPROVE_NIC_CHANGE_PENDING => "Approve NIC change pending",
+            self::APPROVE_NIC_CHANGE => "Approve NIC change",
+            self::REJECT_NIC_CHANGE_PENDING => "Reject NIC change pending",
+            self::REJECT_NIC_CHANGE => "Reject NIC change",
+            self::APPROVE_MOBILE_CHANGE_PENDING => "Approve Mobile change pending",
+            self::APPROVE_MOBILE_CHANGE => "Approve Mobile change",
+            self::REJECT_MOBILE_CHANGE_PENDING => "Reject Mobile change pending",
+            self::REJECT_MOBILE_CHANGE => "Reject Mobile change",
+            self::EDIT_BILLER_FEE_PENDING => "Edit biller fee pending",
+            self::EDIT_BILLER_FEE => "Edit biller fee",
+            self::ADD_QR_FEE_PENDING => "Add QR fee pending",
+            self::ADD_QR_FEE => "Add QR fee",
+            self::EDIT_QR_FEE_PENDING => "Edit QR fee pending",
+            self::EDIT_QR_FEE => "Edit QR fee",
+            self::EDIT_BILLER_PENDING => "Edit biller pending",
+            self::EDIT_BILLER => "Edit biller",
+            self::ADD_PROMOTION_PENDING => "Add promotion pending",
+            self::ADD_PROMOTION => "Add promotion",
+            self::EDIT_PROMOTION_PENDING => "Edit promotion pending",
+            self::EDIT_PROMOTION => "Edit promotion",
+            self::ADD_PROMOTION_CATEGORY_PENDING => "Add promotion category pending",
+            self::ADD_PROMOTION_CATEGORY => "Add promotion category",
+            self::EDIT_PROMOTION_CATEGORY_PENDING => "Edit promotion category pending",
+            self::EDIT_PROMOTION_CATEGORY => "Edit promotion category",
+            self::ADD_CEFT_BANK_PENDING => "Add CEFT bank pending",
+            self::ADD_CEFT_BANK => "Add CEFT bank",
+            self::UPDATE_CEFT_BANK_PENDING => "Update CEFT bank pending",
+            self::UPDATE_CEFT_BANK => "Update CEFT bank",
+            self::ADD_JP_BANK_PENDING => "Add Justpay bank pending",
+            self::ADD_JP_BANK => "Add Justpay bank",
+            self::UPDATE_JP_BANK_PENDING => "Update Justpay bank pending",
+            self::UPDATE_JP_BANK => "Update Justpay bank",
+            self::ADD_SEYLAN_BRANCH_PENDING => "Add Seylan branch pending",
+            self::ADD_SEYLAN_BRANCH => "Add Seylan",
+            self::UPDATE_SEYLAN_BRANCH_PENDING => "Update Seylan branch pending",
+            self::UPDATE_SEYLAN_BRANCH => "Update Seylan branch",
+            self::ADD_ACCOUNT_TYPE_PENDING => "Add account type pending",
+            self::ADD_ACCOUNT_TYPE => "Add account type",
+            self::UPDATE_ACCOUNT_TYPE_PENDING => "Update account type pending",
+            self::UPDATE_ACCOUNT_TYPE => "Update account type",
+            self::ADD_CUSTOMER_TYPE_PENDING => "Add customer type pending",
+            self::ADD_CUSTOMER_TYPE => "Add customer type",
+            self::UPDATE_CUSTOMER_TYPE_PENDING => "Update customer type pending",
+            self::UPDATE_CUSTOMER_TYPE => "Update customer type",
+            self::USER_STATUS_UPDATE_PENDING => "User status update pending",
+            self::USER_STATUS_UPDATE => "User status update",
+            self::USER_PIN_RESET_PENDING => "User PIN reset pending",
+            self::USER_PIN_RESET => "User PIN reset",
+            self::ADD_BILLER_PENDING => "Add biller pending",
+            self::ADD_BILLER => "Add biller",
+            self::ADD_BILLER_CATEGORY_PENDING => "Add biller category pending",
+            self::ADD_BILLER_CATEGORY => "Add biller category",
+            self::EDIT_BILLER_CATEGORY_PENDING => "Edit biller category pending",
+            self::EDIT_BILLER_CATEGORY => "Edit biller category",
+            self::ADD_ADMIN_USER_PENDING => "Add admin user pending",
+            self::ADD_ADMIN_USER => "Add admin user",
+            self::UPDATE_ADMIN_USER_PENDING => "Update admin user pending",
+            self::UPDATE_ADMIN_USER => "Update admin user",
+            self::ADD_ROLE_PENDING => "Add role pending",
+            self::ADD_ROLE => "Add role",
+            self::UPDATE_ROLE_PENDING => "Update role pending",
+            self::UPDATE_ROLE => "Update role",
+            self::DELETE_ROLE_PENDING => "Delete role pending",
+            self::DELETE_ROLE => "Delete role",
+            self::ADD_GROUP_LIMIT_PENDING => "Add user group limit pending",
+            self::ADD_GROUP_LIMIT => "Add user group limit",
+            self::UPDATE_GROUP_LIMIT_PENDING => "Update user group limit pending",
+            self::UPDATE_GROUP_LIMIT => "Update user group limit",
+            self::ADD_CARD_BIN => "Add card BIN",
+            self::UPDATE_CARD_BIN => "Update card BIN",
+            self::ADD_CARD_BIN_PENDING => "Add card BIN pending",
+            self::UPDATE_CARD_BIN_PENDING => "Update card BIN pending",
+            self::UPDATE_NETWORK_PRIORITIES_PENDING  => "Update Network Priorities Pending",
+            self::UPDATE_NETWORK_PRIORITIES  => "Update Network Priorities",
+            self::ADD_LPOP_MCC_CODE => "Add LPOP MCC Code",
+            self::UPDATE_LPOP_MCC_CODE => "Update LPOP MCC Code",
+            self::ADD_LPOP_MCC_CODE_PENDING => "Add LPOP MCC Code pending",
+            self::UPDATE_LPOP_MCC_CODE_PENDING => "Update LPOP MCC Code pending",
+            self::REVIEW_APP_USER_PENDING => "Review App User Pending",
+            self::REVIEW_APP_USER => "Review App User",
+        };
+    }
+
+    // Returns labels for PowerGrid Select Filter
+    public function labelPowergridFilter(): string
+    {
+        return $this->labels();
+    }
+}

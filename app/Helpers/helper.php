@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 if (!function_exists('include_route_files')) {
 
@@ -85,5 +86,27 @@ if (!function_exists('log_activity')) {
         } catch (Exception $e) {
             Log::error($log . "Exception: " . $e->getMessage() . " - " . $e->getLine());
         }
+    }
+}
+
+if (!function_exists('audit_log')) {
+    function audit_log(string $action, string $description = null, string $pre = null, string $new = null): void
+    {
+        try {
+            $trail = new \App\Models\Backend\AuditTrail();
+            $trail->created_at = Carbon::now();
+            $trail->email = auth()->user() != null ? auth()->user()->email : null;
+            $trail->request = $pre;
+            $trail->response = $new;
+            $trail->sequence_id = session()->getId();
+            $trail->category = "ADMIN";
+            $trail->action = $action;
+            $trail->description = $description;
+
+            $trail->save();
+        } catch (Exception $exception) {
+            Log::warning("[AuditLog] | Exception -> " . $exception->getMessage() . " " . $exception->getLine());
+        }
+
     }
 }
