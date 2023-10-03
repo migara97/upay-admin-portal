@@ -1,7 +1,9 @@
 <?php
 
+use App\Repository\Eloquent\ActivityRepository;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 if (!function_exists('include_route_files')) {
@@ -86,6 +88,35 @@ if (!function_exists('log_activity')) {
         } catch (Exception $e) {
             Log::error($log . "Exception: " . $e->getMessage() . " - " . $e->getLine());
         }
+    }
+}
+
+if (!function_exists('upload_image')) {
+
+    function upload_image($image, Closure $failedCallback, $path = null, $overwrite = false): ?string
+    {
+        $log = "[UPLOAD_IMAGE] | ";
+
+        $originalName = $image->getClientOriginalName();
+        $filename = pathinfo($originalName, PATHINFO_FILENAME);
+        $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+        $name = preg_replace("/[^a-zA-Z0-9]+/", "_", $filename) . ".$extension";
+
+        Log::info($log . "Name: " . $name);
+
+        // Skip file existence check if overwrite is enabled
+        if (!$overwrite) {
+            $finalPath = $path ? "$path/$name" : $name;
+            $fileExists = Storage::disk(env('STORAGE_DISK'))->exists($finalPath);
+
+            if ($fileExists) {
+                return $failedCallback("An image already exists with this name.");
+            }
+        }
+
+        $image->storeAs($path, $name, env('STORAGE_DISK'));
+
+        return $name;
     }
 }
 
