@@ -103,5 +103,36 @@
                 </div>
             </x-slot>
         </x-modal.card>
+
+        {{-- Provider Image Update modal --}}
+        <x-modal.card title="Update Provider Image" wire:model.defer="providerImageUpdateModal" max-width="xl"
+            :hide-close="true" {{-- x-on:close='$wire.closeModal()' --}}>
+
+            <form action="">
+
+                <div class="grid grid-cols-3 grid-rows-1 gap-2 items-end">
+
+                    <div class="col-span-1 flex-row my-auto">
+                        <x-errors only="newImageError" title="Image upload failed." />
+                        <x-input class="col-span-1" type="file" accept="image/png, image/jpeg" label="Icon"
+                            placeholder="0" wire:model.defer="newIcon" />
+                    </div>
+                    <div class="col-span-2 flex-row">
+
+                        @if ($newIcon)
+                            <img src="{{ $newIcon->temporaryUrl() }}" height="80">
+                        @endif
+                    </div>
+
+                </div>
+            </form>
+
+            <x-slot name="footer">
+                <div class="flex justify-between gap-x-4">
+                    <x-button flat label="Cancel" wire:click="closeImageUpdateModal" />
+                    <x-button primary label="Update" wire:click="{{ $imageUpdateOperation }}" />
+                </div>
+            </x-slot>
+        </x-modal.card>
     </div>
 </div>

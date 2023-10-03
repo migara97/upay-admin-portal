@@ -5,7 +5,9 @@ namespace App\Livewire\Backend\BillerManagement;
 use App\Models\Backend\Biller;
 use App\Repository\BillerRepositoryInterface;
 use App\Repository\Eloquent\BillerCategoryRepository;
+use App\Repository\Eloquent\BillerRepository;
 use App\Repository\Eloquent\JustpayBankRepository;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Psr\Log\LogLevel;
@@ -19,6 +21,9 @@ class BillerManagement extends Component
     private static BillerRepositoryInterface $billerProviderService;
 
     public bool $providerCreateModal =  false;
+    public bool $providerImageUpdateModal = false;
+
+    public string $imageUpdateOperation = "updateProviderImageSave";
 
     public string $operationMethod = 'store';
     public string $modelTitle = 'Add New Provider';
@@ -48,8 +53,13 @@ class BillerManagement extends Component
     public $uploadFileName = null;
     public $imageUpdateUploadFileName = null;
 
+    public Biller $editBiller;
+
     protected $listeners =[
-        'CreateProvider' => 'openModal'
+        'CreateProvider' => 'openModal',
+        'EditProvider' => 'editProvider',
+        'ToggleProvider' => 'toggleProvider',
+        'UpdateProviderImage' => 'updateProviderImage',
     ];
 
     protected $rules = [
@@ -226,5 +236,56 @@ class BillerManagement extends Component
                 'label' => $this->label
             ],
         ];
+    }
+
+    public function editProvider($id, BillerRepository $billerRepository, BillerCategoryRepository $categoryRepository)
+    {
+        $this->modelTitle = 'Edit Provider';
+        $this->modelBtnTitle = 'Update';
+        $this->operationMethod = 'update';
+
+        $editBiller = $billerRepository->findBiller($id);
+
+        // Set here to update it later when confirmed by user
+        $this->editBiller = $editBiller;
+
+        $this->categories = $categoryRepository->getActiveCategories();
+        $this->providerCode = $editBiller->biller_code;
+        $this->providerName = $editBiller->biller_name;
+        $this->category = $editBiller->category_id ?? "";
+        $this->accountNo = $editBiller->account_number;
+        $this->bank = $editBiller->bank_id;
+        $this->maxAmount = $editBiller->max_amount;
+        $this->minAmount = $editBiller->min_amount;
+        $this->convenienceFee = $editBiller->convenience_fee;
+        $this->maxLength = $editBiller->max_length;
+        $this->minLength = $editBiller->min_length;
+        $this->isMobile = $editBiller->is_mobile == 1;
+        $this->isNumber = $editBiller->is_num == 1;
+        $this->status = $editBiller->state == 1;
+        $this->placeholder = $editBiller->place_holder;
+        $this->label = $editBiller->label;
+
+        $this->providerCreateModal = true;
+    }
+
+    public function toggleProvider($data)
+    {
+        Log::info($data['id']);
+        Log::info($data['field']);
+        Log::info($data['value']);
+        /// Used to handle toggleable
+    }
+
+    public function updateProviderImage($data)
+    {
+        $this->imageUpdateOperation .= ("(" . $data['provider'] . ")");
+        $this->newIcon = null;
+        $this->providerImageUpdateModal = true;
+    }
+
+    public function closeImageUpdateModal()
+    {
+        $this->providerImageUpdateModal = false;
     }
 }
