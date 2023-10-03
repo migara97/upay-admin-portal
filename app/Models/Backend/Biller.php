@@ -4,6 +4,7 @@ namespace App\Models\Backend;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Biller extends Model
 {
@@ -33,4 +34,9 @@ class Biller extends Model
         'label',
         'place_holder'
     ];
+
+    public function bank(): HasOne
+    {
+        return $this->hasOne(JustpayBank::class,'id', 'bank_id');
+    }
 }
