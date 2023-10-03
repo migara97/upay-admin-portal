@@ -2,13 +2,18 @@
 
 namespace App\Livewire\Backend\BillerManagement;
 
+use App\Enums\AuditTrailAction;
+use App\Models\Backend\BillerCategory;
 use App\Repository\BillerCategoryRepositoryInterface;
 use Livewire\Component;
 use PHPUnit\Exception;
 use Psr\Log\LogLevel;
+use WireUi\Traits\Actions;
 
 class BillerCategoryManagement extends Component
 {
+
+    use Actions;
 
     public string $formName = 'ProviderCategoryManagement';
 
@@ -30,6 +35,11 @@ class BillerCategoryManagement extends Component
 
     protected $listeners = [
         'CreateCategory' => 'openModal',
+    ];
+
+    protected $rules = [
+        'categoryId' => 'required|numeric|digits_between:1,20',
+        'categoryName' => 'required|regex:/^[a-zA-Z0-9 ]+$/',
     ];
     public function render()
     {
@@ -53,12 +63,32 @@ class BillerCategoryManagement extends Component
         $this->categoryCreateModal = false;
     }
 
-    public function store(BillerCategoryRepositoryInterface   $categoryRepository)
+    public function store(BillerCategoryRepositoryInterface $categoryRepository)
     {
         $actionName = "Store biller category";
         $this->validate();
 
         try {
+            if ($this->checkCategoryExists()) {
+                log_activity($actionName, "A Category already exists with this details: Id -> $this->categoryId, Name -> $this->categoryName.");
+                $this->addError('generalError', 'A Category already exists with this details.');
+                return;
+            }
+            $this->closeModal();
+
+            $payload = json_encode($this->getCategoryPayload());
+            log_activity($actionName, 'Data : ' . $payload);
+
+            $categoryRepository->storeCategory(json_decode($payload, true)['data']);
+            log_activity($actionName, "Provider category [ $this->categoryName ] [ save ] successful.");
+            audit_log(AuditTrailAction::ADD_BILLER_CATEGORY->name, "Provider category $this->categoryName, saved successfully.", null, json_encode(json_decode($payload, true)['data']));
+
+            $this->notification()->success(
+                'Category Created!',
+                'New category created successfully.',
+            );
+
+            $this->dispatch('reload-category-table');
 
         } catch (Exception $exception) {
 //            log_activity($actionName, "Category create failed: Exception -> " . $exception->getMessage(), null, LogLevel::ERROR);
@@ -68,5 +98,25 @@ class BillerCategoryManagement extends Component
             );
         }
 
+    }
+
+    private function checkCategoryExists(): bool
+    {
+        return BillerCategory::query()
+                ->where('id', $this->categoryId)
+                ->orWhere('name', $this->categoryName)
+                ->count() > 0;
+    }
+
+    private function getCategoryPayload(): array
+    {
+        return [
+            'data' => [
+                'id' => $this->categoryId,
+                'category_order' => 1,
+                'category_status' => ($this->categoryStatus) ? "1" : "0",
+                'name' => $this->categoryName,
+            ],
+        ];
     }
 }
