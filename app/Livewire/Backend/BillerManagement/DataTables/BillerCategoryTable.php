@@ -41,8 +41,23 @@ final class BillerCategoryTable extends PowerGridComponent
                 ->class('flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm
                         text-sm font-medium text-white bg-emerald-700 hover:bg-emerald-600 focus:outline-none
                         focus:ring-2 focus:ring-offset-2 focus:ring-emerald-700 cursor-pointer')
-                ->openModal('create-provider', [])
+                ->dispatch('create-category', [])
         ];
+    }
+
+    public function createCategory()
+    {
+        $this->dispatch('CreateCategory');
+    }
+
+    protected function getListeners(): array
+    {
+        return array_merge(
+            parent::getListeners(),
+            [
+                'create-category' => 'createCategory',
+            ]
+        );
     }
 
     public function datasource(): Builder
