@@ -5,6 +5,7 @@ namespace App\Livewire\Backend\BillerManagement;
 use App\Enums\AuditTrailAction;
 use App\Models\Backend\BillerCategory;
 use App\Repository\BillerCategoryRepositoryInterface;
+use App\Repository\Eloquent\BillerCategoryRepository;
 use Livewire\Component;
 use PHPUnit\Exception;
 use Psr\Log\LogLevel;
@@ -26,7 +27,7 @@ class BillerCategoryManagement extends Component
 
     public string $categoryId = "";
     public string $categoryName = "";
-    public $categoryStatus = "";
+    public $categoryStatus = true;
 
     public $editCategory;
 
@@ -35,6 +36,7 @@ class BillerCategoryManagement extends Component
 
     protected $listeners = [
         'CreateCategory' => 'openModal',
+        'EditCategory' => 'editCategory',
     ];
 
     protected $rules = [
@@ -110,13 +112,84 @@ class BillerCategoryManagement extends Component
 
     private function getCategoryPayload(): array
     {
+//        dd(($this->categoryStatus == true),"--------", ($this->categoryStatus === true) ? 1 : 0);
         return [
             'data' => [
                 'id' => $this->categoryId,
                 'category_order' => 1,
-                'category_status' => ($this->categoryStatus) ? "1" : "0",
+                'category_status' => ($this->categoryStatus === true) ? 1 : 0,
                 'name' => $this->categoryName,
             ],
         ];
+    }
+
+    public function editCategory($id, BillerCategoryRepository $categoryRepository)
+    {
+        $this->editCategory = $categoryRepository->findCategory($id);
+
+        $this->modelTitle = 'Edit Category';
+        $this->modelBtnTitle = 'Update';
+        $this->operationMethod = 'update';
+
+        $this->categoryName = $this->editCategory->name;
+        $this->categoryId = $this->editCategory->category_id;
+        $this->categoryStatus = $this->editCategory->category_status;
+
+        $this->resetErrorBag();
+        $this->resetValidation();
+
+        $this->categoryCreateModal = true;
+    }
+
+    public function update(BillerCategoryRepositoryInterface   $categoryRepository)
+    {
+        $actionName = "Update provider category";
+        $this->validate();
+
+        try {
+            if ($this->checkOtherCategoryExists()) {
+                log_activity($actionName, "A Provider category already exists with this details: Category ID -> [ $this->categoryId ], Name -> [ $this->categoryName ].");
+                $this->addError('generalError', 'A provider category already exists with this details.');
+                return;
+            }
+
+            $this->closeModal();
+
+            $payload = $this->getCategoryPayload();
+            $payload['id'] = $this->editCategory->id;
+            $payload = json_encode($payload);
+
+            log_activity($actionName, 'Data : ' . $payload);
+            $categoryRepository->storeCategoryUpdate($this->editCategory->id, json_decode($payload, true)['data']);
+
+//            $printData = filter_arrays(json_decode(json_encode($this->editCategory), true), json_decode($payload, true)['data']);
+//
+//            log_activity($actionName, "Provider category [ $this->categoryName ] [ update ] successful.");
+//            audit_log(AuditTrailAction::EDIT_BILLER_CATEGORY->name, "Provider category $this->categoryName, updated successfully.", json_encode($printData[0]), json_encode($printData[1]));
+
+            $this->notification()->success(
+                'Provider Category Updated!',
+                'Provider Category updated successfully.',
+            );
+        }catch (\Exception $exception) {
+            log_activity($actionName, "Provider category update failed: Exception -> " . $exception->getMessage() . " - " . $exception->getLine(), null, LogLevel::ERROR);
+            $this->notification()->error(
+                'Error !!!',
+                'Provider category update failed, please try again!'
+            );
+        }
+    }
+
+    private function checkOtherCategoryExists(): bool
+    {
+        $bc = BillerCategory::query()
+            ->where('name', $this->categoryName)
+            ->whereNot('id', $this->editCategory->id);
+
+        if ($this->categoryId != $this->editCategory->id) {
+            $bc->where('category_id', $this->categoryId);
+        }
+
+        return $bc->count() > 0;
     }
 }
