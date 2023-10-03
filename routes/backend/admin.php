@@ -48,7 +48,7 @@ Route::prefix('transactions')->group(function () {
 });
 
 // Providers management routes
-Route::group(['prefix' => 'providers', 'as' => 'providers.'], function () {
+Route::group(['prefix' => 'providers', 'as' => 'providers.', 'middleware' => ['permission:view-biller-management']], function () {
     Route::get('biller', BillerManagement::class)->name('biller');
     Route::get('category', BillerCategoryManagement::class)->name('category');
 });

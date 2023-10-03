@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Repository\BillerCategoryRepositoryInterface;
+use App\Repository\BillerRepositoryInterface;
 use App\Repository\Eloquent\BaseRepository;
 use App\Repository\Eloquent\BillerCategoryRepository;
+use App\Repository\Eloquent\BillerRepository;
 use App\Repository\Eloquent\JustpayBankRepository;
 use App\Repository\EloquentRepositoryInterface;
 use App\Repository\JustpayBankRepositoryInterface;
@@ -22,7 +24,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
         $this->app->bind(BillerCategoryRepositoryInterface::class, BillerCategoryRepository::class);
         $this->app->bind(JustpayBankRepositoryInterface::class, JustpayBankRepository::class);
-
+        $this->app->bind(BillerRepositoryInterface::class, BillerRepository::class);
     }
 
     /**
