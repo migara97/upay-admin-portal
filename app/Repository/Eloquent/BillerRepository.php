@@ -17,10 +17,6 @@ class BillerRepository extends BaseRepository implements BillerRepositoryInterfa
         parent::__construct($model);
     }
 
-
-
-
-
     public function storeProvider(array $details)
     {
         $biller = Biller::create($details);

@@ -56,6 +56,11 @@ return [
             'throw' => false,
         ],
 
+        'app-resources' => [
+            'driver' => 'local',
+            'root'   => env('APP_RESOURCE_PATH'),
+        ],
+
     ],
 
     /*
