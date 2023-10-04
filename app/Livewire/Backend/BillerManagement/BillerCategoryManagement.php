@@ -115,6 +115,7 @@ class BillerCategoryManagement extends Component
         return [
             'data' => [
                 'category_id' => $this->categoryId,
+                'category_order' => 1,
                 'category_status' => ($this->categoryStatus === true) ? 1 : 0,
                 'name' => $this->categoryName,
             ],
