@@ -340,4 +340,61 @@ class BillerManagement extends Component
     {
         $this->categories = $categoryRepository->getActiveCategories();
     }
+
+    public function updateProviderImageSave($id)
+    {
+        $actionName = "Update biller provider image";
+        $this->validate([
+            'newIcon' => 'required|image|max:1024|mimes:png,jpeg',
+        ]);
+
+        try {
+
+            $uploadFileMessage = null;
+
+            $this->imageUpdateUploadFileName = upload_image($this->newIcon, function ($message) use (&$uploadFileMessage) {
+                $uploadFileMessage = $message;
+            });
+
+            if ($this->imageUpdateUploadFileName == null) {
+                log_activity($actionName, $uploadFileMessage);
+                $this->addError('newImageError', $uploadFileMessage);
+                return;
+            }
+
+            $this->closeImageUpdateModal();
+
+            $payload = json_encode([
+                "id" => $id,
+                "data" => [
+                    'provider_image' => $this->imageUpdateUploadFileName
+                ],
+            ]);
+
+            log_activity($actionName, 'Data : ' . $payload);
+
+            $imageUpdateBiller = self::$billerProviderService->findBiller($id);
+
+            self::$billerProviderService->updateProvider(json_decode($payload, true)['id'], json_decode($payload, true)['data']);
+            
+            $printData = filter_arrays(json_decode(json_encode($imageUpdateBiller), true), json_decode($payload, true)["data"]);
+
+            log_activity($actionName, "Provider [ $this->providerName ] [ update image ] successful.");
+            audit_log(AuditTrailAction::EDIT_BILLER->name, "Provider $this->providerName, image updated successfully.", json_encode($printData[0]), json_encode($printData[1]));
+
+            $this->notification()->success(
+                'Image Update Successful!',
+                'Provider image updated successfully.',
+            );
+
+            $this->dispatch('reload-biller-table');
+
+        } catch (\Exception $exception) {
+            log_activity($actionName, "Provider image update failed: Exception -> " . $exception->getMessage() . " - " . $exception->getLine(), null, LogLevel::ERROR);
+            $this->notification()->error(
+                'Error !!!',
+                'Provider image update failed, please try again!'
+            );
+        }
+    }
 }
