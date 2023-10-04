@@ -112,11 +112,9 @@ class BillerCategoryManagement extends Component
 
     private function getCategoryPayload(): array
     {
-//        dd(($this->categoryStatus == true),"--------", ($this->categoryStatus === true) ? 1 : 0);
         return [
             'data' => [
-                'id' => $this->categoryId,
-                'category_order' => 1,
+                'category_id' => $this->categoryId,
                 'category_status' => ($this->categoryStatus === true) ? 1 : 0,
                 'name' => $this->categoryName,
             ],
@@ -133,7 +131,7 @@ class BillerCategoryManagement extends Component
 
         $this->categoryName = $this->editCategory->name;
         $this->categoryId = $this->editCategory->category_id;
-        $this->categoryStatus = $this->editCategory->category_status;
+        $this->categoryStatus = $this->editCategory->category_status == 1;
 
         $this->resetErrorBag();
         $this->resetValidation();
@@ -178,6 +176,8 @@ class BillerCategoryManagement extends Component
                 'Provider category update failed, please try again!'
             );
         }
+
+        $this->dispatch('reload-category-table');
     }
 
     private function checkOtherCategoryExists(): bool

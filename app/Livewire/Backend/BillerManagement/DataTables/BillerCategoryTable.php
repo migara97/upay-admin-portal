@@ -58,8 +58,14 @@ final class BillerCategoryTable extends PowerGridComponent
             [
                 'create-category' => 'createCategory',
                 'edit-category' => 'editCategory',
+                'reload-category-table' => 'reload',
             ]
         );
+    }
+
+    public function reload()
+    {
+        $this->fillData();
     }
 
     public function editCategory($id)
@@ -125,9 +131,9 @@ final class BillerCategoryTable extends PowerGridComponent
     {
         return [
             Button::add('edit')
-                ->slot('Edit: '.$row->id)
+                ->slot('Edit')
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm sm')
                 ->dispatch('edit-category', ['id' => $row->id])
         ];
     }
