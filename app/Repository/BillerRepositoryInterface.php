@@ -9,4 +9,6 @@ interface BillerRepositoryInterface
     
     public function storeProvider(array $details);
 
+    public function updateProvider(int $id, array $details);
+
 }

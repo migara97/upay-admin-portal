@@ -173,6 +173,7 @@
             </x-backend.menu-item>
 
             <!-- Service Provider Management -->
+            @can('view-biller-management')
             <x-backend.menu-item title='Biller Management' :hasSubMenu="true"
                                  is-active="{{ request()->is('admin/providers*') }}" label="Biller Management">
                 <x-slot:icon>
@@ -197,7 +198,7 @@
                 </a>
 
             </x-backend.menu-item>
-
+            @endcan
 
             <div style="margin-bottom: 2rem;"></div>
         </ul>

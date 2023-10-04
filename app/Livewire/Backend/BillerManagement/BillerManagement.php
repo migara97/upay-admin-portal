@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Backend\BillerManagement;
 
+use App\Enums\AuditTrailAction;
 use App\Models\Backend\Biller;
 use App\Repository\BillerRepositoryInterface;
 use App\Repository\Eloquent\BillerCategoryRepository;
 use App\Repository\Eloquent\BillerRepository;
 use App\Repository\Eloquent\JustpayBankRepository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -187,6 +189,7 @@ class BillerManagement extends Component
 
             $providerService->storeProvider(json_decode($payload, true) ['data']);
             log_activity($actionName, "Provider [ $this->providerName ] [ save ] successful.");
+            // audit_log(AuditTrailAction::ADD_BILLER->name, "Provider $this->providerName, saved successfully.", null, json_decode($payload, true)['data']);
 
             $this->notification()->notify([
                 'title' => 'Provider Creation Successful!',
@@ -248,7 +251,6 @@ class BillerManagement extends Component
 
         // Set here to update it later when confirmed by user
         $this->editBiller = $editBiller;
-
         $this->categories = $categoryRepository->getActiveCategories();
         $this->providerCode = $editBiller->biller_code;
         $this->providerName = $editBiller->biller_name;
@@ -287,5 +289,55 @@ class BillerManagement extends Component
     public function closeImageUpdateModal()
     {
         $this->providerImageUpdateModal = false;
+    }
+
+    public function update()
+    {
+        $actionName = "Update biller provider";
+        if ($this->category && ($this->category == env('CATEGORY_GOV_ID'))) {
+            $this->validate([
+                'providerCode' => 'required',
+                'providerName' => 'required',
+                'category' => 'required',
+                'status' => 'required',
+            ]);
+        } else {
+            $this->validate(Arr::except($this->rules, 'icon'));
+        }
+        try {
+            $this->closeModal();
+            
+            $payload = $this->getProviderPayload();
+            $payload["data"] = Arr::except($payload["data"], "provider_image");
+            $payload['id'] = $this->editBiller->id;
+            $payload = json_encode($payload);
+            
+            log_activity($actionName, 'Data : ' . $payload);
+
+            self::$billerProviderService->updateProvider(json_decode($payload, true)['id'], json_decode($payload, true)['data']);
+
+            $printData = filter_arrays(json_decode(json_encode($this->editBiller), true), json_decode($payload, true)['data']);
+            log_activity($actionName, "Provider [ $this->providerName ] [update] successful. ");
+            audit_log(AuditTrailAction::EDIT_BILLER->name, "Provider $this->providerName, updated successfully.", json_encode($printData[0]), json_encode($printData[1]));
+
+            $this->notification()->notify([
+                'title' => 'Update Successful!',
+                'description' => 'Provider updated successfully.',
+                'icon' => 'success'
+            ]);
+
+            $this->dispatch('reload-biller-table');
+        } catch (\Exception $exception) {
+            log_activity($actionName, "Provider update failed: Exception -> " . $exception->getMessage(), null, LogLevel::ERROR);
+            $this->notification()->error(
+                'Error !!!',
+                'Provider update failed, please try again!'
+            );
+        }
+    }
+
+    public function categoryChangedCallback(BillerCategoryRepository $categoryRepository)
+    {
+        $this->categories = $categoryRepository->getActiveCategories();
     }
 }
