@@ -32,7 +32,9 @@ class BillerRepository extends BaseRepository implements BillerRepositoryInterfa
         return $biller;
     }
 
-
-
+    public function updateProvider(int $id, array $details)
+    {
+        return Biller::find($id)->update($details);
+    }
 
 }

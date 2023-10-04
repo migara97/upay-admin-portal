@@ -142,14 +142,14 @@ if (!function_exists('audit_log')) {
     }
 }
 
-//if (!function_exists('filter_arrays')) {
-//    function filter_arrays(array $first, array $second): array
-//    {
-//        $out = filter_dual_auth_summary([
-//            "pre" => $first,
-//            "new" => $second
-//        ]);
-//
-//        return [$out["pre"], $out["new"]];
-//    }
-//}
+if (!function_exists('filter_arrays')) {
+   function filter_arrays(array $first, array $second): array
+   {
+    //    $out = filter_dual_auth_summary([
+    //        "pre" => $first,
+    //        "new" => $second
+    //    ]);
+
+       return [$first, $second];
+   }
+}

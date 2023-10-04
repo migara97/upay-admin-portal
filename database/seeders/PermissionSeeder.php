@@ -20,6 +20,7 @@ class PermissionSeeder extends Seeder
             // Biller
             [ 'name' => 'view-biller-management', 'category_id' => Pmc::Biller->value],
             [ 'name' => 'add-provider', 'category_id' => Pmc::Biller->value],
+            [ 'name' => 'edit-provider', 'category_id' => Pmc::Biller->value],
         ];
 
         //Disable foregin key checks
